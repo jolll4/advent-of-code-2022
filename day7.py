@@ -40,13 +40,24 @@ def recurse_nodes(G, node, weight_list):
             count+=1
             return_sum, weight_list = recurse_nodes(G, node=i, weight_list=weight_list)
             sum_of_kids += G[node][i]["weight"] + return_sum
+
         weight_list.append(sum_of_kids)
         return sum_of_kids, weight_list
     return 0, weight_list
 
+def smallest_deletable(weight_list):
+    used = weight_list[-1]
+    weight_list.sort()
+    for i in weight_list:
+        if 70000000-used+i >= 30000000:
+            print("Smallest folder to delete is",i)
+            break
+    return 0
+
 def node_weights(G):
     sum_of_all, weight_list = recurse_nodes(G, node=str(['root']), weight_list=[])
-    print("Weights are ", weight_list)
+    print("Weights are", weight_list)
+    smallest_deletable(weight_list)
     return total_sum(weight_list)
 
 def make_network(file):
