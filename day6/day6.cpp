@@ -1,44 +1,43 @@
 #include <iostream>
 #include <fstream>
 
-void appendNewLetter(std::string* sample, char addedLetter) {
-    sample->push_back(addedLetter);
-
+void appendNewLetter(std::string* textSample, char addedLetter) {
+    textSample->push_back(addedLetter);
 }
 
-void eraseFirstappendNewLetter(std::string* sample, char addedLetter) {
-    sample->erase(0,1);
-    appendNewLetter(sample, addedLetter);
+void eraseFirstappendNewLetter(std::string* textSample, char addedLetter) {
+    textSample->erase(0,1);
+    appendNewLetter(textSample, addedLetter);
 }
 
-bool checkIfKeysAreUnique(std::string sample, int keySetSize) {
+bool checkIfKeysAreUnique(std::string textSample, unsigned int keySetSize) {
     bool keysAreUnique = true;
     for(unsigned int j = 0; j < keySetSize; j++) {
-                for(unsigned int k = 0; k < keySetSize; k++) {
-                    if(j != k && sample[j] == sample[k]) {
-                        keysAreUnique = false;
-                    }
-                }
+        for(unsigned int k = 0; k < keySetSize; k++) {
+            if(j != k && textSample[j] == textSample[k]) {
+                keysAreUnique = false;
             }
+        }
+    }
     return keysAreUnique;
 }
 
-void printAnswer(std::string sample, int charLocation) {
-    std::cout << "The first matching text is " << sample << std::endl;
+void printAnswer(std::string textSample, unsigned int charLocation) {
+    std::cout << "The first matching text is " << textSample << std::endl;
     std::cout << "which ends at char number " << charLocation+1 << std::endl;
 }
 
-void findFirstSetOfUniqueKeys(std::string row, int keySetSize) {
-    std::string sample = "";
+void findFirstSetOfUniqueKeys(std::string row, unsigned int keySetSize) {
+    std::string textSample = "";
     for(unsigned int i = 0; i < row.length(); i++) {
         if (i > keySetSize-1) {
-            eraseFirstappendNewLetter(&sample, row[i]);
-            if(checkIfKeysAreUnique(sample, keySetSize)) {
-                printAnswer(sample, i);
+            eraseFirstappendNewLetter(&textSample, row[i]);
+            if(checkIfKeysAreUnique(textSample, keySetSize)) {
+                printAnswer(textSample, i);
                 break;
             }
         } else {
-            appendNewLetter(&sample, row[i]);
+            appendNewLetter(&textSample, row[i]);
         }
     }
 }
