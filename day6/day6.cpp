@@ -27,35 +27,35 @@ void printAnswer(std::string textSample, unsigned int charLocation) {
     std::cout << "which ends at char number " << charLocation << std::endl;
 }
 
-void findFirstSetOfUniqueKeys(std::string row, unsigned int keySetSize) {
+void findFirstSetOfUniqueKeys(std::string textInput, unsigned int keySetSize) {
     std::string textSample = "";
-    for(unsigned int i = 0; i < row.length(); i++) {
-        if (i > keySetSize-1) {
-            eraseFirstappendNewLetter(&textSample, row[i]);
+    for(unsigned int i = 0; i < textInput.length(); i++) {
+        if (i >= keySetSize) {
+            eraseFirstappendNewLetter(&textSample, textInput[i]);
             if(checkIfKeysAreUnique(textSample, keySetSize)) {
                 printAnswer(textSample, i+1);
                 break;
             }
         } else {
-            appendNewLetter(&textSample, row[i]);
+            appendNewLetter(&textSample, textInput[i]);
         }
     }
 }
 
-std::string readInputFileContent() {
+std::string readInputFileContent(std::string fileName) {
     std::fstream file;
-    std::string row;
+    std::string rowOfText;
 
-    file.open("day6-input.txt");
-    getline(file, row);
+    file.open(fileName);
+    getline(file, rowOfText);
     file.close();
-    return row;
+    return rowOfText;
 }
 
 int main() {
-    std::string row = readInputFileContent();
-    findFirstSetOfUniqueKeys(row, 4);
-    findFirstSetOfUniqueKeys(row, 14);
+    std::string rowOfText = readInputFileContent("day6-input.txt");
+    findFirstSetOfUniqueKeys(rowOfText, 4);
+    findFirstSetOfUniqueKeys(rowOfText, 14);
 
     return 0;
 }
