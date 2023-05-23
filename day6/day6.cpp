@@ -24,7 +24,7 @@ bool checkIfKeysAreUnique(std::string textSample, unsigned int keySetSize) {
 
 void printAnswer(std::string textSample, unsigned int charLocation) {
     std::cout << "The first matching text is " << textSample << std::endl;
-    std::cout << "which ends at char number " << charLocation+1 << std::endl;
+    std::cout << "which ends at char number " << charLocation << std::endl;
 }
 
 void findFirstSetOfUniqueKeys(std::string row, unsigned int keySetSize) {
@@ -33,7 +33,7 @@ void findFirstSetOfUniqueKeys(std::string row, unsigned int keySetSize) {
         if (i > keySetSize-1) {
             eraseFirstappendNewLetter(&textSample, row[i]);
             if(checkIfKeysAreUnique(textSample, keySetSize)) {
-                printAnswer(textSample, i);
+                printAnswer(textSample, i+1);
                 break;
             }
         } else {
