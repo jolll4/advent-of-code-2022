@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 void appendNewLetter(std::string* textSample, char addedLetter) {
     textSample->push_back(addedLetter);
