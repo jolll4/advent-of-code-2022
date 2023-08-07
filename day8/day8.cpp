@@ -98,6 +98,7 @@ int findVisibleTrees(vector<vector<int>> visibleTrees) {
         }
         cout << endl;
     }
+    cout << endl;
     return sum;
 }
 
@@ -109,9 +110,58 @@ int countVisibleTrees(vector<vector<int>> mapOfTrees) {
     return findVisibleTrees(visibleTrees);
 }
 
+int calculateVisibility(vector<vector<int>> mapOfTrees, int row, int column) {
+    int scoreLeft = 0;
+    for(int toTheLeft = 1; column-toTheLeft >= 0; toTheLeft++) {
+        scoreLeft++;
+        if(mapOfTrees[row][column - toTheLeft] >= mapOfTrees[row][column]) {
+            break;
+        }
+    }
+    int scoreRight = 0;
+    for(unsigned int toTheRight = 1; column+toTheRight < mapOfTrees[0].size(); toTheRight++) {
+        scoreRight++;
+        if(mapOfTrees[row][column + toTheRight] >= mapOfTrees[row][column]) {
+            break;
+        }
+    }
+    int scoreUp = 0;
+    for(int up = 1; row-up >= 0; up++) {
+        scoreUp++;
+        if(mapOfTrees[row - up][column] >= mapOfTrees[row][column]) {
+            break;
+        }
+    }
+    int scoreDown = 0;
+    for(unsigned int down = 1; row+down < mapOfTrees.size(); down++) {
+        scoreDown++;
+        if(mapOfTrees[row + down][column] >= mapOfTrees[row][column]) {
+            break;
+        }
+    }
+    return scoreUp*scoreRight*scoreLeft*scoreDown;
+}
+
+int findHigestVisibilityScore(vector<vector<int>> mapOfTrees) {
+    int highestScore = 0;
+    unsigned int columnCount = mapOfTrees[0].size();
+    for(unsigned int rowNumber = 0; rowNumber < mapOfTrees.size(); rowNumber++) {
+        int highestInColumn = -1;
+        for(unsigned int columnNumber = 0; columnNumber < columnCount; columnNumber++) {
+            int visibilityScore = calculateVisibility(mapOfTrees, rowNumber, columnNumber);
+            if(visibilityScore > highestScore) {
+                highestScore = visibilityScore;
+            }
+        }
+    }
+    return highestScore;
+}
+
 int main() {
     vector<vector<int>> mapOfTrees = readInputFileContent("day8-input.txt");
     int visibleTreesCount = countVisibleTrees(mapOfTrees);
-    cout << visibleTreesCount << endl;
+    int highestVisibilityScore = findHigestVisibilityScore(mapOfTrees);
+    cout << "part 1 answer: " << visibleTreesCount << " visible trees." << endl;
+    cout << "part 2 answer: The highest visibilty score is " << highestVisibilityScore << endl;
     return 0;
 }
