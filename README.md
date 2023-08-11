@@ -8,6 +8,6 @@ C++: 6, 8
 
 Python: 1, 2, 3, 7, 25
 
-Ruby: 4
+Ruby: 4, 9
 
 Typescript: 5
